@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/TrainWithShubham/AI-BankApp-DevOps.git
+    repoURL: https://github.com/Shibnath27/AI-Bankapp-Gitops-Platform.git
     targetRevision: feat/gitops
     path: k8s
   destination:
