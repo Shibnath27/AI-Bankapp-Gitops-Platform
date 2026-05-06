@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/Shibnath27/AI-Bankapp-Gitops-Platform.git
-    targetRevision: feat/gitops
+    targetRevision: main
     path: k8s
   destination:
     server: https://kubernetes.default.svc
