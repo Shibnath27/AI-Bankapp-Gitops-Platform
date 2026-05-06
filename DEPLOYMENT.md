@@ -121,7 +121,7 @@ kubectl get secret kube-prometheus-grafana -n monitoring \
 
 ## Step 7: Build & Push Docker Image
 
-> CI does this automatically on push to `feat/gitops`. This step is only needed for the **first deploy** (image doesn't exist on DockerHub yet).
+> CI does this automatically on push to `main`. This step is only needed for the **first deploy** (image doesn't exist on DockerHub yet).
 
 ```bash
 # IMPORTANT: EKS runs amd64 nodes. If building on Apple Silicon (M1/M2/M3),
