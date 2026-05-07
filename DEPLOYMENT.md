@@ -88,7 +88,7 @@ kubectl get pods -n cert-manager
 After ArgoCD syncs the ClusterIssuer and updated Gateway (with HTTPS listener), cert-manager automatically provisions a Let's Encrypt TLS certificate.
 
 **Prerequisite:** Create a CNAME in GoDaddy:
-- `bankapp.trainwithshubham.com` → `<NLB hostname from Step 4>`
+- `<your-domain>` → `<NLB hostname from Step 4>`
 
 ```bash
 # Check certificate status
