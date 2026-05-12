@@ -1,24 +1,12 @@
 [source]
 name = "AI Bankapp GitOps Platform"
-paths = [""]
-since = ""
-max_target_megabytes = 0
-max_goroutines = 0
-verbose = false
-scan_untracked_files = false
 
-[[allowlist]]
-description = "Ignore k8s secrets manifest - contains base64 encoded test credentials"
+[allowlist]
 paths = [
-    "k8s/secrets.yml"
+    "k8s/secrets.yml",
+    ".env",
+    ".env.local"
 ]
 rule_ids = [
     "kubernetes-secret-yaml"
-]
-
-[[allowlist]]
-description = "Ignore environment files"
-paths = [
-    ".env",
-    ".env.local"
 ]
