@@ -12,6 +12,9 @@ description = "Ignore k8s secrets manifest - contains base64 encoded test creden
 paths = [
     "k8s/secrets.yml"
 ]
+rule_ids = [
+    "kubernetes-secret-yaml"
+]
 
 [[allowlist]]
 description = "Ignore environment files"
