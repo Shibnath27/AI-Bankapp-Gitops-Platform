@@ -1,18 +1,13 @@
 name: GitOps CI - Build & Push to DockerHub
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'src/**'
-      - 'pom.xml'
-      - 'Dockerfile'
-      - 'k8s/**'
-  workflow_dispatch:
+  workflow_call:
 
 permissions:
   contents: write
-
+  security-events: write
+  id-token: write  # Required for OIDC
+  
 env:
   DOCKERHUB_REPO: shibnath27/ai-bankapp-eks
 
