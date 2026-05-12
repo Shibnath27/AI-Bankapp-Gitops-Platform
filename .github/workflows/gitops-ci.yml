@@ -22,6 +22,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # ============================================================
+      # GATE 5: BUILD
+      # ============================================================
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -39,6 +42,42 @@ jobs:
         run: ./mvnw test -B
         continue-on-error: true
 
+      # ============================================================
+      # GATE 6: CONTAINER IMAGE SCAN - Trivy
+      # ============================================================
+      - name: Build Docker Image (for scanning)
+        run: docker build --pull -t bankapp:scan-${{ github.sha }} .
+
+      - name: Cache Trivy DB
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/trivy
+          key: trivy-db-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: |
+            trivy-db-${{ runner.os }}-
+
+      - name: Run Trivy Image Scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: bankapp:scan-${{ github.sha }}
+          format: 'table'
+          exit-code: '1'         # Enforce: fail pipeline on CRITICAL/HIGH findings
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
+          output: trivy-report.txt
+          trivy-config: trivy.yaml
+
+      - name: Upload Trivy Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: trivy-scan-report
+          path: trivy-report.txt
+        
+      # ============================================================
+      # GATE 7: PUSH TO DOCKER HUB
+      # ============================================================
       - name: Set image tag
         id: tag
         run: echo "sha_short=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
