@@ -4,17 +4,20 @@ on:
   push:
     branches:
       - main
-      
+    paths:
+      - 'src/**'
+      - 'pom.xml'
+      - 'Dockerfile'
+      - 'k8s/**' 
   pull_request:
     branches:
       - main
 
 env:
-  IMAGE_NAME: ai-bankapp
-  REGISTRY: docker.io
+  IMAGE_NAME: ai-bankapp-eks
 
 permissions:
-  contents: read
+  contents: write
   security-events: write
   id-token: write
 
